@@ -18,6 +18,7 @@ export default {
   methods:{
     async getData()
     {
+      // text
       try {
         let response = await this.$auth.loginWith('local')
         console.log(response)
