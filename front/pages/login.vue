@@ -1,14 +1,28 @@
 <template>
   <div class="container">
-      <div>
-          content!
-      </div>
+    <div @click="getData">
+      кнопка
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  created:function ()
+  {
+    console.clear();
+  },
+  methods:{
+    async getData()
+    {
+      // w
+      try {
+        await this.$auth.loginWith('local')
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
 }
 </script>
 

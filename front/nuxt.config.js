@@ -28,20 +28,45 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
   ],
 
-  axios:{
-    baseURL:'http://backend.com'
+  axios: {
+    baseURL: process.env.BASE_URL
   },
 
+  // auth: {
+  //   strategies: {
+  //     local: {
+  //       endpoints: {
+  //         login: {
+  //           url: '/api/auth/user',
+  //           method: 'get'
+  //         },
+  //       },
+  //       token: {
+  //         maxAge: 1800
+  //       },
+  //       refreshToken: {
+  //         maxAge: 60 * 60 * 24 * 30
+  //       },
+  //     }
+  //   }
+  // },
+
   auth: {
-    strategies: {
+    login: '/login',
+      logout: '/',
+      strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
+          login: {url: '/api/auth/login', method: 'post', propertyName: 'access_token'},
+          logout: {url: '/api/auth/logout', method: 'get', },
+          user: {url: '/api/auth/user', method: 'get', propertyName: 'user'},
         },
-      }
+        tokenRequired: true,
+          tokenType: 'Bearer',
+      },
     }
   },
 

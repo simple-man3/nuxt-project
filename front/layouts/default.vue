@@ -11,6 +11,11 @@
           about
         </nuxt-link>
       </li>
+      <li>
+        <nuxt-link :to="{name:'login'}">
+          login
+        </nuxt-link>
+      </li>
     </ul>
     <Nuxt />
   </div>
