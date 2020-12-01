@@ -15,12 +15,18 @@ export default {
   methods:{
     async getData()
     {
-      // w
-      try {
-        await this.$auth.loginWith('local')
-      } catch (err) {
-        console.log(err)
-      }
+      await this.$auth.loginWith('local')
+      .then(response=>{
+        console.log(response);
+
+        this.$auth.setUser(response.data.allData.token);
+      })
+      .catch(error=>{
+        console.error(error)
+      })
+
+      console.log(this.$auth.loggedIn);
+      console.log(this.$auth.user);
     }
   }
 }

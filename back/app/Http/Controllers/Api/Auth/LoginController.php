@@ -22,6 +22,7 @@ class LoginController extends Controller
 
             return response()->json([
                 'access_token' => $token->accessToken,
+                'allData' => $token,
             ]);
         }
 
@@ -30,10 +31,11 @@ class LoginController extends Controller
         ]),401);
     }
 
-    public function something()
+    public function logout()
     {
         return response(json_encode([
-            'msg'=>Auth::user()
+            'msg'=>'цу гуд',
+            'user'=>Auth::user(),
         ]),200);
     }
 }

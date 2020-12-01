@@ -35,32 +35,13 @@ export default {
     baseURL: process.env.BASE_URL
   },
 
-  // auth: {
-  //   strategies: {
-  //     local: {
-  //       endpoints: {
-  //         login: {
-  //           url: '/api/auth/user',
-  //           method: 'get'
-  //         },
-  //       },
-  //       token: {
-  //         maxAge: 1800
-  //       },
-  //       refreshToken: {
-  //         maxAge: 60 * 60 * 24 * 30
-  //       },
-  //     }
-  //   }
-  // },
-
   auth: {
     login: '/login',
       logout: '/',
       strategies: {
       local: {
         endpoints: {
-          login: {url: '/api/auth/login', method: 'post', propertyName: 'access_token'},
+          login: {url: '/api/auth/login', method: 'get', propertyName: 'access_token'},
           logout: {url: '/api/auth/logout', method: 'get', },
           user: {url: '/api/auth/user', method: 'get', propertyName: 'user'},
         },
