@@ -19,8 +19,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('auth/user', function(Request $request) {
         return auth()->user();
     });
+    Route::get('auth/logout',[LoginController::class,'logout']);
 });
 
 Route::get('/auth/login',[LoginController::class,'loginUser']);
-Route::get('/ty',[LoginController::class,'logout']);
-//Route::get('/ty',[LoginController::class,'something']);

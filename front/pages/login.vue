@@ -1,9 +1,15 @@
 <template>
-  <div class="container">
-    <div @click="getData">
-      кнопка
+  <section>
+    <div @click="sigIn">
+      кнопка авторизации
     </div>
-  </div>
+    <div @click="getData">
+      кнопка показа данных юзера
+    </div>
+    <div @click="logOut">
+      кнопка выхода из системы
+    </div>
+  </section>
 </template>
 
 <script>
@@ -15,60 +21,56 @@ export default {
   methods:{
     async getData()
     {
-      await this.$auth.loginWith('local')
+      this.$axios.get(process.env.BASE_URL+'/api/auth/user')
       .then(response=>{
         console.log(response);
-
-        this.$auth.setUser(response.data.allData.token);
       })
       .catch(error=>{
-        console.error(error)
+        console.log(error);
       })
+    },
+
+    async sigIn()
+    {
+      await this.$auth.loginWith('local')
+        .then(response=>{
+          console.log(response);
+
+          this.$auth.setUser(response.data.user);
+        })
+        .catch(error=>{
+          console.error(error)
+        })
 
       console.log(this.$auth.loggedIn);
       console.log(this.$auth.user);
-    }
+    },
+
+    async logOut()
+    {
+      this.$axios.get(process.env.BASE_URL+'/api/auth/logout')
+        .then(response=>{
+          console.log(response);
+        })
+        .catch(error=>{
+          console.log(error);
+        })
+    },
   }
 }
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
+section div{
+  width: 200px;
+  height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+  border-radius: 9px;
+  padding: 5px;
+  border: 1px solid;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 </style>

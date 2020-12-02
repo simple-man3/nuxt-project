@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
+use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,7 +23,7 @@ class LoginController extends Controller
 
             return response()->json([
                 'access_token' => $token->accessToken,
-                'allData' => $token,
+                'user'=>auth()->user()
             ]);
         }
 
@@ -33,9 +34,10 @@ class LoginController extends Controller
 
     public function logout()
     {
+        \auth()->user()->token()->revoke();
+
         return response(json_encode([
-            'msg'=>'цу гуд',
-            'user'=>Auth::user(),
+            'msg'=>'success logout!'
         ]),200);
     }
 }
