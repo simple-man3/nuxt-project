@@ -32,18 +32,31 @@ export default {
 
     async sigIn()
     {
-      await this.$auth.loginWith('local')
-        .then(response=>{
-          console.log(response);
+      this.$auth.loginWith('laravelPassportPassword',{
+        data:{
+          username:'example@gmail.com',
+          password:123456,
+        }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error)
+      });
 
-          this.$auth.setUser(response.data.user);
-        })
-        .catch(error=>{
-          console.error(error)
-        })
-
-      console.log(this.$auth.loggedIn);
-      console.log(this.$auth.user);
+      // await this.$auth.loginWith('local')
+      //   .then(response=>{
+      //     console.log(response);
+      //
+      //     this.$auth.setUser(response.data.user);
+      //   })
+      //   .catch(error=>{
+      //     console.error(error)
+      //   })
+      //
+      // console.log(this.$auth.loggedIn);
+      // console.log(this.$auth.user);
     },
 
     async logOut()

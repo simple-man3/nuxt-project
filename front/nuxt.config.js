@@ -1,5 +1,4 @@
 export default {
-  // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
 
   head: {
@@ -28,26 +27,33 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/auth',
+    '@nuxtjs/auth-next',
   ],
 
-  axios: {
-    baseURL: process.env.BASE_URL
-  },
-
   auth: {
-    login: '/login',
-      logout: '/',
-      strategies: {
-      local: {
+    redirect: {
+      login: '/about'
+    },
+    strategies: {
+      laravelPassportPasswordGrant: {
+        name: 'laravelPassportPassword',
+        provider: 'laravel/passport',
+        url: process.env.BASE_URL,
         endpoints: {
-          login: {url: '/api/auth/login', method: 'get', propertyName: 'access_token'},
-          logout: {url: '/api/auth/logout', method: 'get', },
-          user: {url: '/api/auth/user', method: 'get', propertyName: 'user'},
+          user: {
+            url: process.env.AUTH_USER_ENDPOINT
+          }
         },
-        tokenRequired: true,
-          tokenType: 'Bearer',
-      },
+        token: {
+          maxAge: 1800
+        },
+        refreshToken: {
+          maxAge: 60 * 60 * 24 * 3
+        },
+        clientId: process.env.OAUTH_CLIENT_ID,
+        clientSecret: process.env.OAUTH_CLIENT_SECRET,
+        grantType: 'password'
+      }
     }
   },
 
