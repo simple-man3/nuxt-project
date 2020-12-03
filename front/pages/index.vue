@@ -8,6 +8,7 @@
 
 <script>
 export default {
+  auth:true,
   created() {
     console.log(this.$auth);
   }

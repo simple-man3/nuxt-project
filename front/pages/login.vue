@@ -9,14 +9,23 @@
     <div @click="logOut">
       кнопка выхода из системы
     </div>
+    <div @click="getToken">
+      кнопка получения токена
+    </div>
   </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+  computed: {
+    ...mapGetters(['loggedInUser','isAuthenticated'])
+  },
   created:function ()
   {
-    console.clear();
+    // console.clear();11
+    console.log(this.loggedInUser);
+    console.log(this.isAuthenticated);
   },
   methods:{
     async getData()
@@ -32,10 +41,10 @@ export default {
 
     async sigIn()
     {
-      this.$auth.loginWith('laravelPassportPassword',{
+      this.$auth.loginWith('laravelPassport',{
         data:{
-          username:'example@gmail.com',
-          password:123456,
+          username:'example2@gmail.com',
+          password:'123456',
         }
       })
       .then(response => {
@@ -44,31 +53,20 @@ export default {
       .catch(error => {
         console.error(error)
       });
-
-      // await this.$auth.loginWith('local')
-      //   .then(response=>{
-      //     console.log(response);
-      //
-      //     this.$auth.setUser(response.data.user);
-      //   })
-      //   .catch(error=>{
-      //     console.error(error)
-      //   })
-      //
-      // console.log(this.$auth.loggedIn);
-      // console.log(this.$auth.user);
     },
 
     async logOut()
     {
-      this.$axios.get(process.env.BASE_URL+'/api/auth/logout')
-        .then(response=>{
-          console.log(response);
-        })
-        .catch(error=>{
-          console.log(error);
-        })
+      await this.$auth.logout();
+
+      console.log(this.loggedInUser);
+      console.log(this.isAuthenticated);
     },
+
+    getToken:function ()
+    {
+      console.log(this.$auth.loggedIn);
+    }
   }
 }
 </script>

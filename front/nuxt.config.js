@@ -30,31 +30,39 @@ export default {
     '@nuxtjs/auth-next',
   ],
 
+  // axios:{
+  //   baseURL:process.env.BASE_URL
+  // },
+
   auth: {
     redirect: {
-      login: '/about'
+      login: '/',
     },
     strategies: {
-      laravelPassportPasswordGrant: {
-        name: 'laravelPassportPassword',
+      'laravelPassport': {
         provider: 'laravel/passport',
         url: process.env.BASE_URL,
         endpoints: {
-          user: {
-            url: process.env.AUTH_USER_ENDPOINT
-          }
+          userInfo: process.env.AUTH_USER_ENDPOINT
         },
         token: {
-          maxAge: 1800
+          property: 'access_token',
+          type: 'Bearer',
+          maxAge: 0
         },
-        refreshToken: {
-          maxAge: 60 * 60 * 24 * 3
-        },
+        // refreshToken: {
+        //   maxAge: 60 * 60 * 24 * 3
+        // },
         clientId: process.env.OAUTH_CLIENT_ID,
         clientSecret: process.env.OAUTH_CLIENT_SECRET,
-        grantType: 'password'
+        grantType: 'password',
+        autoLogout:true
       }
     }
+  },
+
+  router: {
+    middleware: ['auth']
   },
 
   build: {

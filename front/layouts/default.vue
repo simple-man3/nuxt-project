@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div>
+      <div @click="checkAuthUser" style="cursor: pointer">
+        Проверить авторизован ли юзер
+      </div>
+    </div>
     <ul>
       <li>
         <nuxt-link :to="{name:'index'}">
@@ -7,8 +12,8 @@
         </nuxt-link>
       </li>
       <li>
-        <nuxt-link :to="{name:'about'}">
-          about
+        <nuxt-link :to="{name:'newPage'}">
+          newPage
         </nuxt-link>
       </li>
       <li>
@@ -20,3 +25,20 @@
     <Nuxt />
   </div>
 </template>
+
+<script>
+import {mapGetters} from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser'])
+  },
+  methods:{
+    checkAuthUser:function ()
+    {
+      console.log(this.loggedInUser);
+      console.log(this.isAuthenticated);
+    }
+  }
+}
+</script>
