@@ -22,4 +22,4 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('auth/logout',[LoginController::class,'logout']);
 });
 
-Route::get('/auth/login',[LoginController::class,'loginUser']);
+Route::get('/auth/login',[LoginController::class,'loginUser'])->name('login');
