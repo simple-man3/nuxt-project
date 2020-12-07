@@ -38,6 +38,7 @@ export default {
     {
       console.log(this.loggedInUser);
       console.log(this.isAuthenticated);
+      console.log(this.$auth.hasScope('edit'));
     }
   }
 }

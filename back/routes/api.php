@@ -15,11 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'auth:api'], function() {
-    Route::get('auth/user', function(Request $request) {
-        return auth()->user();
-    });
-    Route::get('auth/logout',[LoginController::class,'logout']);
-});
+Route::group(['middleware' => 'auth:api','client'], function() {
+    Route::get('/auth/user', [LoginController::class,'getAuthUser']);
 
-Route::get('/auth/login',[LoginController::class,'loginUser'])->name('login');
+//    Route::get('/get-access',[LoginController::class,'userAccess'])->middleware('can:something');
+    Route::get('/get-access',[LoginController::class,'userAccess']);
+});

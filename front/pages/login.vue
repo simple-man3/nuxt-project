@@ -9,8 +9,8 @@
     <div @click="logOut">
       кнопка выхода из системы
     </div>
-    <div @click="getToken">
-      кнопка получения токена
+    <div @click="ty">
+      кнопка ty
     </div>
   </section>
 </template>
@@ -63,9 +63,15 @@ export default {
       console.log(this.isAuthenticated);
     },
 
-    getToken:function ()
+    async ty ()
     {
-      console.log(this.$auth.loggedIn);
+      this.$axios.get('/api/get-access')
+      .then(response=>{
+        console.log(response);
+      })
+      .catch(error=>{
+        console.error(error);
+      });
     }
   }
 }
