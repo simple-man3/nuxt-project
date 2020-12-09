@@ -20,4 +20,7 @@ Route::group(['middleware' => 'auth:api','client'], function() {
 
 //    Route::get('/get-access',[LoginController::class,'userAccess'])->middleware('can:something');
     Route::get('/get-access',[LoginController::class,'userAccess']);
+
 });
+
+Route::get('/ty',[LoginController::class,'ty']);

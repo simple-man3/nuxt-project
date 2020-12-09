@@ -47,4 +47,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getCustomAttribute()
+    {
+        return $this['custom']=[
+            'custom1'=>'qqqq1',
+            'custom2'=>'text2',
+        ];
+    }
+
+    protected $appends = [ 'custom' ];
 }
